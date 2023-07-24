@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { Routes, Route } from "react-router-dom";
+import Test from './components/Test';
+import Odi from './components/Odi'
+import T20 from './components/T20'
+
+
+
+const Routing = () => {
+  return(
+    <Routes>
+      <Route exact path="/test" element = {<Test />}/>
+      <Route exact path="/odi" element = {<Odi />}/>
+      <Route exact path="/t20" element = {<T20 />}/>
+    </Routes>
+  )
+}
+
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar/>
+      <Routing/>
+    </>
   );
 }
 
