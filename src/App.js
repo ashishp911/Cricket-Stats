@@ -6,7 +6,7 @@ import Test from './components/Test';
 import Odi from './components/Odi'
 import T20 from './components/T20'
 
-
+import backgroundImage from './images/cricket2.jpg'
 
 const Routing = () => {
   return(
@@ -24,10 +24,12 @@ const Routing = () => {
 
 function App() {
   return (
-    <>
+    <div style={{
+      backgroundImage:`url(${backgroundImage})`
+    }}>
       <Navbar/>
       <Routing/>
-    </>
+    </div>
   );
 }
 
