@@ -4,7 +4,9 @@ import (
 	"cricket-stats/backend/model"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -19,4 +21,12 @@ func GetTestStats(w http.ResponseWriter, r *http.Request) {
 	TestRecords = GetFromDB(my_db, TestRecords)
 	json.NewEncoder(w).Encode(TestRecords)
 	fmt.Println(TestRecords)
+
+	// json
+	jsonData, err := json.Marshal(TestRecords)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Write(jsonData)
 }
