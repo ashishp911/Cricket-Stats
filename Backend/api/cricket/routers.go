@@ -1,4 +1,4 @@
-package Cricket
+package cricket
 
 import (
 	"fmt"
@@ -8,12 +8,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func NewRouter() {
+func EnterRouter() {
 	r := mux.NewRouter()
-	r.HandleFunc("/users", Postby).Methods("POST")
-	r.HandleFunc("/users/{book_id}", Putby).Methods("PUT")
-	r.HandleFunc("/users/{book_id}", Getby).Methods("GET")
-	r.HandleFunc("/users/{book_id}", Deleteby).Methods("DELETE")
+
+	r.HandleFunc("/test", GetTestStats).Methods("GET")
 	fmt.Println("starting server at 8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
 
