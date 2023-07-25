@@ -4,15 +4,16 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
+	"github.com/rs/cors"
 	"github.com/gorilla/mux"
 )
 
 func EnterRouter() {
 	r := mux.NewRouter()
-
+	
 	r.HandleFunc("/test", GetTestStats).Methods("GET")
 	fmt.Println("starting server at 8000")
-	log.Fatal(http.ListenAndServe(":8000", r))
-
+	// Enable CORS for the router
+    corsHandler := cors.Default().Handler(r)
+	log.Fatal(http.ListenAndServe(":8000", corsHandler))
 }

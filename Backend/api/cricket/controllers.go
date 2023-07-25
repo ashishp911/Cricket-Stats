@@ -13,20 +13,19 @@ import (
 var TestRecords []model.Test
 
 func GetTestStats(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("You are in GET table ")
+	fmt.Println("You are in GET table ", *r)
 	w.Header().Set("Content-Type", "application/json")
-	// params := mux.Vars(r)
 
 	my_db := Connect()
 	TestRecords = GetFromDB(my_db, TestRecords)
-	json.NewEncoder(w).Encode(TestRecords)
-	fmt.Println(TestRecords)
-
+	
 	// json
 	jsonData, err := json.Marshal(TestRecords)
 	if err != nil {
 		log.Fatal(err)
 	}
+	// json.NewEncoder(w).Encode(TestRecords)
 
 	w.Write(jsonData)
+	TestRecords = make([]model.Test, 0)
 }

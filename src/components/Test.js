@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   TableContainer,
@@ -12,119 +12,57 @@ import {
 } from "@mui/material";
 
 const Test = () => {
+  const [playersData, setPlayersData] = useState([]);
 
-
-  const getData = async() => {
+  const getData = async () => {
     try {
-      const response = await fetch('/test');
+      const response = await fetch("http://localhost:8000/test");
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log("CLGing people ...");
+      setPlayersData(data);
       console.log(data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
   useEffect(() => {
-    getData()  
-  }, [])
-  
-  const cricketStatsTest = [
-    {
-      player: "Ashish",
-      playedMatches: 100,
-      Innings: 150,
-      Runs: 10020,
-      HighestScore: 264,
-    },
-    {
-      player: "Manikanta",
-      playedMatches: 85,
-      Innings: 130,
-      Runs: 9000,
-      HighestScore: 95,
-    },
-    {
-      player: "Gokul",
-      playedMatches: 72,
-      Innings: 110,
-      Runs: 7500,
-      HighestScore: 85,
-    },
-    {
-      player: "Jeevan",
-      playedMatches: 22,
-      Innings: 22,
-      Runs: 1451,
-      HighestScore: 66,
-    },
-    {
-      player: "Vishnu",
-      playedMatches: 132,
-      Innings: 130,
-      Runs: 11432,
-      HighestScore: 183,
-    },
-    {
-      player: "Vishnu",
-      playedMatches: 132,
-      Innings: 130,
-      Runs: 11432,
-      HighestScore: 183,
-    },
-    {
-      player: "Vishnu",
-      playedMatches: 132,
-      Innings: 130,
-      Runs: 11432,
-      HighestScore: 183,
-    },
-    {
-      player: "Vishnu",
-      playedMatches: 132,
-      Innings: 130,
-      Runs: 11432,
-      HighestScore: 183,
-    },
-    {
-      player: "Vishnu",
-      playedMatches: 132,
-      Innings: 130,
-      Runs: 11432,
-      HighestScore: 183,
-    },
-    // Add more objects with dummy data as needed
-  ];
+    getData();
+  }, []);
 
   const tableStyles = {
     display: "flex",
     "justify-content": "center",
     "align-items": "center",
     height: "95vh",
-    'flex-direction': 'column',
+    "flex-direction": "column",
   };
 
   const tabContainerStyles = {
-    'background-color': '#101C12',
-    'border-radius': '25px',
+    "background-color": "#101C12",
+    "border-radius": "25px",
     width: 750,
-  }
+  };
   const tableCellHeaderStyles = {
-    color : "#CCE60E",
-    "font-size":'25px',
-  }
+    color: "#CCE60E",
+    "font-size": "25px",
+  };
   const tableContentStyles = {
-    color : "#23F181",
-    "font-size":'15px',
-  }
+    color: "#23F181",
+    "font-size": "15px",
+  };
   return (
     <div style={tableStyles}>
-      <Typography variant="h2" style={{
-        color: '#CCE60E',
-        marginBottom:10,
-
-      }}>
+      <Typography
+        variant="h2"
+        style={{
+          color: "#CCE60E",
+          marginBottom: 10,
+        }}
+      >
         Test Cricket
       </Typography>
       <TableContainer component={Paper} style={tabContainerStyles}>
@@ -132,27 +70,53 @@ const Test = () => {
           <TableHead>
             <TableRow>
               <TableCell style={tableCellHeaderStyles}>Player</TableCell>
-              <TableCell align="center" style={tableCellHeaderStyles}>Played Matches</TableCell>
-              <TableCell align="center" style={tableCellHeaderStyles}>Innings</TableCell>
-              <TableCell align="center" style={tableCellHeaderStyles}>Runs</TableCell>
-              <TableCell align="center" style={tableCellHeaderStyles}>Highest Score</TableCell>
-              <TableCell align="center" style={tableCellHeaderStyles}>Total Average</TableCell>
+              <TableCell align="center" style={tableCellHeaderStyles}>
+                Played Matches
+              </TableCell>
+              <TableCell align="center" style={tableCellHeaderStyles}>
+                Innings
+              </TableCell>
+              <TableCell align="center" style={tableCellHeaderStyles}>
+                Runs
+              </TableCell>
+              <TableCell align="center" style={tableCellHeaderStyles}>
+                Highest Score
+              </TableCell>
+              <TableCell align="center" style={tableCellHeaderStyles}>
+                Total Average
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {cricketStatsTest.map((playerStats, index) => (
+            {playersData.map((player, index) => (
               <TableRow
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row" style={tableContentStyles}>
-                  {playerStats.player}
+                <TableCell
+                  component="th"
+                  scope="row"
+                  style={tableContentStyles}
+                >
+                  {player.player}
                 </TableCell>
-                <TableCell align="center" style={tableContentStyles}>{playerStats.playedMatches}</TableCell>
-                <TableCell align="center" style={tableContentStyles}>{playerStats.Innings}</TableCell>
-                <TableCell align="center" style={tableContentStyles}>{playerStats.Runs}</TableCell>
-                <TableCell align="center" style={tableContentStyles}>{playerStats.HighestScore}</TableCell>
-                <TableCell align="center" style={tableContentStyles}>{parseFloat(playerStats.Runs/playerStats.Innings).toFixed(2)}</TableCell>
+                <TableCell align="center" style={tableContentStyles}>
+                  {player.playedMatches}
+                </TableCell>
+                <TableCell align="center" style={tableContentStyles}>
+                  {player.innings}
+                </TableCell>
+                <TableCell align="center" style={tableContentStyles}>
+                  {player.runs}
+                </TableCell>
+                <TableCell align="center" style={tableContentStyles}>
+                  {player.highestScore}
+                </TableCell>
+                <TableCell align="center" style={tableContentStyles}>
+                  {parseFloat(player.runs / player.innings).toFixed(
+                    2
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

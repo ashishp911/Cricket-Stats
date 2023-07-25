@@ -10,12 +10,12 @@ import (
 )
 
 func Connect() *sql.DB {
+	fmt.Println("Connect to DB")
 	// Connect to the database
-	db, err := sql.Open("mysql", "root:@mani1997@tcp(127.0.0.1:3306)/crickstats")
+	db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/crickstats")
 	if err != nil {
 		log.Fatal(err)
 	}
-	//defer db.Close()
 
 	// Test the connection
 	err = db.Ping()
