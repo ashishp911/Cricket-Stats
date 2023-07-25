@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 import { Routes, Route } from "react-router-dom";
@@ -17,9 +16,6 @@ const Routing = () => {
     </Routes>
   )
 }
-
-
-
 
 
 function App() {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   TableContainer,
@@ -8,10 +8,29 @@ import {
   TableCell,
   Paper,
   TableBody,
+  Typography,
 } from "@mui/material";
 
 const Test = () => {
-  const cricketStats = [
+
+
+  const getData = async() => {
+    try {
+      const response = await fetch('/test');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getData()  
+  }, [])
+  
+  const cricketStatsTest = [
     {
       player: "Ashish",
       playedMatches: 100,
@@ -83,6 +102,7 @@ const Test = () => {
     "justify-content": "center",
     "align-items": "center",
     height: "95vh",
+    'flex-direction': 'column',
   };
 
   const tabContainerStyles = {
@@ -91,15 +111,22 @@ const Test = () => {
     width: 750,
   }
   const tableCellHeaderStyles = {
-    color : "green",
+    color : "#CCE60E",
     "font-size":'25px',
   }
   const tableContentStyles = {
-    color : "green",
+    color : "#23F181",
     "font-size":'15px',
   }
   return (
     <div style={tableStyles}>
+      <Typography variant="h2" style={{
+        color: '#CCE60E',
+        marginBottom:10,
+
+      }}>
+        Test Cricket
+      </Typography>
       <TableContainer component={Paper} style={tabContainerStyles}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -113,7 +140,7 @@ const Test = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cricketStats.map((playerStats, index) => (
+            {cricketStatsTest.map((playerStats, index) => (
               <TableRow
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
