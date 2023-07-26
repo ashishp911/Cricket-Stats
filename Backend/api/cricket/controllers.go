@@ -29,3 +29,20 @@ func GetTestStats(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonData)
 	TestRecords = make([]model.Test, 0)
 }
+
+func Addplayer(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var P model.Test
+	err := json.NewDecoder(r.Body).Decode(&P)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		fmt.Println("error")
+		return
+	}
+	fmt.Println(P)
+	TestRecords = append(TestRecords, P)
+
+	my_db := Connect()
+	Adding(my_db, P)
+	json.NewEncoder(w).Encode(P)
+}

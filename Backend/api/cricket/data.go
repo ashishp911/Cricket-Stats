@@ -12,7 +12,7 @@ import (
 func Connect() *sql.DB {
 	fmt.Println("Connect to DB")
 	// Connect to the database
-	db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/crickstats")
+	db, err := sql.Open("mysql", "root:@mani1997@tcp(127.0.0.1:3306)/crickstats")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,4 +45,16 @@ func GetFromDB(db *sql.DB, testRecords []model.Test) []model.Test {
 		testRecords = append(testRecords, oneRecord)
 	}
 	return testRecords
+}
+
+func Adding(db *sql.DB, P model.Test) {
+	fmt.Println("check")
+	query := `INSERT INTO Test (Player, PlayedMatches, Inning, NumberOfRuns, HighestScore) VALUES (?, ?, ?, ?, ?)`
+	_, err := db.Query(query, P.Player, P.PlayedMatches, P.Inning, P.NumberOfRuns, P.HighestScore)
+	fmt.Println(query)
+	if err != nil {
+		fmt.Println(err)
+		log.Fatal(err)
+	}
+	fmt.Println("added successfully.")
 }
