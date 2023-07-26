@@ -39,7 +39,6 @@ func Addplayer(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error")
 		return
 	}
-	fmt.Println(P)
 	TestRecords = append(TestRecords, P)
 
 	my_db := Connect()
