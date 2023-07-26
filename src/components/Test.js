@@ -9,6 +9,7 @@ import {
   Paper,
   TableBody,
   Typography,
+  Button
 } from "@mui/material";
 
 const Test = () => {
@@ -122,6 +123,8 @@ const Test = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Button variant="contained"> Outlined</Button>
     </div>
   );
 };
