@@ -168,18 +168,28 @@ const Test = () => {
           minWidth: 650,
         }}
       >
-        <div className="col-6" style={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center',
-        }}>
+        <div
+          className="col-6"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {/* <Button variant="contained"> Outlined</Button> */}
           <Button variant="contained" onClick={handleOpen}>
             Add a player
           </Button>
         </div>
 
-        <div className="col-6" style={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center',
-        }}>
+        <div
+          className="col-6"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {/* <Button variant="contained"> Outlined</Button> */}
           <Button variant="contained">Delete Player</Button>
         </div>
