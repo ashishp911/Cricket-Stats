@@ -14,58 +14,24 @@ import {
   Modal,
 } from "@mui/material";
 
+import {
+  boxStyle,
+  formStyles,
+  tabContainerStyles,
+  inputStyle,
+  labelStyle,
+  buttonStyle,
+  buttonHoverStyle,
+  tableContentStyles,
+  tableCellHeaderStyles,
+  tableStyles,
+} from "../styles/testStyles";
+
 const Test = () => {
   const [playersData, setPlayersData] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const boxStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 700,
-    // height: 500,
-    // bgcolor: "background.paper",
-    'background-color': '#e1f5fe',
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const formStyles = {
-    display: "flex",
-    "flex-direction": "column",
-    'max-width': '400px',
-    'margin': '0 auto',
-    'padding': '20px',
-    'background-color': '#e1f5fe',
-    'border-radius': '10px',
-  }
-
-  const labelStyle = {
-    'display':'block',
-    'margin-bottom':'10px',
-  }
-  const inputStyle = {
-    width: '100%',
-    padding: '8px',
-    border: '1px solid #ccc',
-    borderRadius: '5px'
-  };
-
-  const buttonStyle = {
-    marginTop: '15px',
-    padding: '10px 20px',
-    backgroundColor: '#4caf50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.3s ease'
-  };
 
   const getData = async () => {
     try {
@@ -90,69 +56,43 @@ const Test = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const parsedValue = name === 'player' ? value : parseInt(value, 10);
+    const parsedValue = name === "player" ? value : parseInt(value, 10);
     setFormData({ ...formData, [name]: parsedValue });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/test/add', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/test/add", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log('Data sent successfully!', data);
+      console.log("Data sent successfully!", data);
 
       // Add the new player to the existing playersData state
       setPlayersData([...playersData, formData]);
 
       // Clear the form data after submitting
       setFormData({
-        player: '',
-        playedMatches: '',
-        innings: '',
-        runs: '',
-        highestScore: ''
+        player: "",
+        playedMatches: "",
+        innings: "",
+        runs: "",
+        highestScore: "",
       });
     } catch (error) {
-      console.error('Error sending data:', error);
-    }  };
+      console.error("Error sending data:", error);
+    }
+  };
 
   useEffect(() => {
     getData();
   }, []);
 
-  const tableStyles = {
-    display: "flex",
-    "justify-content": "center",
-    "align-items": "center",
-    height: "95vh",
-    "flex-direction": "column",
-  };
-
-  const tabContainerStyles = {
-    "background-color": "#101C12",
-    "border-radius": "25px",
-    width: 750,
-    marginBottom: 10,
-  };
-  const tableCellHeaderStyles = {
-    color: "#CCE60E",
-    "font-size": "25px",
-  };
-  const tableContentStyles = {
-    color: "#23F181",
-    "font-size": "15px",
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: '#45a049'
-  };
-  
   return (
     <div style={tableStyles}>
       <Typography
@@ -220,10 +160,31 @@ const Test = () => {
         </Table>
       </TableContainer>
 
-      {/* <Button variant="contained"> Outli/ned</Button> */}
-      <Button variant="contained" onClick={handleOpen}>
-        Add a player
-      </Button>
+      <div
+        className="row"
+        style={{
+          marginTop: "5px",
+          marginBottom: "5px",
+          minWidth: 650,
+        }}
+      >
+        <div className="col-6" style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+        }}>
+          {/* <Button variant="contained"> Outlined</Button> */}
+          <Button variant="contained" onClick={handleOpen}>
+            Add a player
+          </Button>
+        </div>
+
+        <div className="col-6" style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+        }}>
+          {/* <Button variant="contained"> Outlined</Button> */}
+          <Button variant="contained">Delete Player</Button>
+        </div>
+      </div>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -240,7 +201,7 @@ const Test = () => {
                 value={formData.player}
                 style={inputStyle}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label style={labelStyle}>
               Played Matches:
@@ -250,7 +211,7 @@ const Test = () => {
                 value={formData.playedMatches}
                 style={inputStyle}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label style={labelStyle}>
               Innings:
@@ -260,7 +221,7 @@ const Test = () => {
                 value={formData.innings}
                 style={inputStyle}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label style={labelStyle}>
               Runs:
@@ -270,7 +231,7 @@ const Test = () => {
                 value={formData.runs}
                 style={inputStyle}
                 onChange={handleChange}
-                />
+              />
             </label>
             <label style={labelStyle}>
               Highest Score:
@@ -282,7 +243,12 @@ const Test = () => {
                 onChange={handleChange}
               />
             </label>
-            <button type="submit" style={Object.assign({}, buttonStyle, buttonHoverStyle)}>Add to DB</button>
+            <button
+              type="submit"
+              style={Object.assign({}, buttonStyle, buttonHoverStyle)}
+            >
+              Add Player
+            </button>
           </form>
         </Box>
       </Modal>
