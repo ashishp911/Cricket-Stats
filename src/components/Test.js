@@ -30,7 +30,7 @@ import {
   tableCellHeaderStyles,
   tableStyles,
 } from "../styles/testStyles";
-import { blue } from "@mui/material/colors";
+// import { blue } from "@mui/material/colors";
 
 const Test = () => {
   const [playersData, setPlayersData] = useState([]);
@@ -146,12 +146,13 @@ const Test = () => {
         style={{
           color: "#CCE60E",
           marginBottom: 10,
+          marginTop:10,
         }}
       >
-        Test Cricket
+        Test Cricket Stats
       </Typography>
       <TableContainer component={Paper} style={tabContainerStyles}>
-        <Table sx={{ minWidth: 650}} aria-label="simple table">
+        <Table sx={{ minWidth: 650}} aria-label="simple table" >
           <TableHead>
             <TableRow>
               <TableCell style={tableCellHeaderStyles}>Player</TableCell>
