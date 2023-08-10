@@ -58,6 +58,7 @@ const tabContainerStyles = {
   "border-radius": "25px",
   width: 750,
   marginBottom: 10,
+  // overflow: 'hidden',
 };
 const tableCellHeaderStyles = {
   color: "#CCE60E",

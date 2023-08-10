@@ -12,6 +12,10 @@ import {
   Button,
   Box,
   Modal,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
 } from "@mui/material";
 
 import {
@@ -26,6 +30,7 @@ import {
   tableCellHeaderStyles,
   tableStyles,
 } from "../styles/testStyles";
+import { blue } from "@mui/material/colors";
 
 const Test = () => {
   const [playersData, setPlayersData] = useState([]);
@@ -36,6 +41,47 @@ const Test = () => {
   const getData = async () => {
     try {
       const response = await fetch("http://localhost:8000/test");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setPlayersData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sortByRuns = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/test/sortbyruns");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setPlayersData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sortByMatches = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/test/sortbymatches");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setPlayersData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sortByHighScore = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/test/sortbyhighscore"
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -60,7 +106,7 @@ const Test = () => {
     setFormData({ ...formData, [name]: parsedValue });
   };
 
-  const handleSubmit = async (e) => {
+  const addPlayer = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:8000/test/add", {
@@ -105,7 +151,7 @@ const Test = () => {
         Test Cricket
       </Typography>
       <TableContainer component={Paper} style={tabContainerStyles}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650}} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell style={tableCellHeaderStyles}>Player</TableCell>
@@ -122,7 +168,7 @@ const Test = () => {
                 Highest Score
               </TableCell>
               <TableCell align="center" style={tableCellHeaderStyles}>
-                Total Average
+                Average
               </TableCell>
             </TableRow>
           </TableHead>
@@ -169,7 +215,7 @@ const Test = () => {
         }}
       >
         <div
-          className="col-6"
+          className="col-4"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -183,7 +229,7 @@ const Test = () => {
         </div>
 
         <div
-          className="col-6"
+          className="col-4"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -192,6 +238,42 @@ const Test = () => {
         >
           {/* <Button variant="contained"> Outlined</Button> */}
           <Button variant="contained">Delete Player</Button>
+        </div>
+        <div
+          className="col-4"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "blue",
+          }}
+        >
+          <Box sx={{ minWidth: 120, backgroundColor: "#1D71D1" }}>
+            <FormControl fullWidth>
+              <InputLabel style={{ color: "yellow" }}>Sort by</InputLabel>
+              <Select
+                // labelId="demo-simple-select-label"
+                // id="demo-simple-select"
+                // value={age}
+                label="Sort by"
+                style={{ color: "yellow" }}
+                // onChange={handleChange}
+              >
+                <MenuItem value={"Matches"} onClick={sortByMatches}>
+                  Matches
+                </MenuItem>
+                <MenuItem value={"High Score"} onClick={sortByHighScore}>
+                  High Score
+                </MenuItem>
+                <MenuItem value={"Runs"} onClick={sortByRuns}>
+                  Runs
+                </MenuItem>
+                <MenuItem value={"Reset"} onClick={getData}>
+                  Reset
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
         </div>
       </div>
 
@@ -202,7 +284,7 @@ const Test = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={boxStyle}>
-          <form onSubmit={handleSubmit} style={formStyles}>
+          <form onSubmit={addPlayer} style={formStyles}>
             <label style={labelStyle}>
               Player:
               <input
